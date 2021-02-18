@@ -1,11 +1,14 @@
 import logo from './logo.svg';
 import { Header } from './components/Header';
+import {Button} from '@material-ui/core';
 
 import './App.css';
 
 function App() {
   return (
+    
     <div className="App">
+      <Header text="asdasd" color="yellow"></Header>      
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -20,8 +23,7 @@ function App() {
           Learn React
         </a>
       </header>
-
-      <Header text="asdasd" color="yellow"></Header>
+      
     </div>
   );
 }
