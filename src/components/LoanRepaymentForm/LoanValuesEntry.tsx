@@ -12,6 +12,16 @@ import Container from "@material-ui/core/Container";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
+
+type LoanValuesEntryProps = {
+  loanAmount: number,
+  interestRate: number,
+  loanTermInYear: number,
+  expectedPaymentsPerYear: number,
+  startDate: Date,
+  extraLoanPaymentAmount: number 
+}
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -37,9 +47,21 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function LoanValuesEntry() {
+export default function LoanValuesEntry(initialProps : LoanValuesEntryProps) {
   const classes = useStyles();
 
+  const [loanValues, setLoanValues] = React.useState<LoanValuesEntryProps>(initialProps);
+
+  const loanValuesOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    console.log(event.target.name, event.target.value);    
+    setLoanValues({
+      ...loanValues,
+      [event.target.name]: event.target.value
+    });
+  };
+
+  
   return (
     <Container maxWidth="xs">
       <CssBaseline />
@@ -52,11 +74,11 @@ export default function LoanValuesEntry() {
         </Typography>
         <Box
           component="form"
-          // noValidate
-          className={classes.form}
+          // noValidate          
         >
           {/* entry fields */}
-          <Grid container spacing={0}>
+          <form  className={classes.form} noValidate autoComplete="off">
+          <Grid container spacing={0}>           
             <Grid item xs={8}>
               <TextField
                 name="loanAmount"
@@ -64,6 +86,8 @@ export default function LoanValuesEntry() {
                 fullWidth
                 id="loanAmount"
                 label="Loan amount"
+                defaultValue={loanValues.loanAmount}
+                onChange={loanValuesOnChange}
                 autoFocus
               />
             </Grid>
@@ -74,6 +98,8 @@ export default function LoanValuesEntry() {
                 id="interestRate"
                 label="Interest rate"
                 name="interestRate"
+                defaultValue={loanValues.interestRate}
+                onChange={loanValuesOnChange}
               />
             </Grid>
             <Grid item xs={4} container justify="flex-end">
@@ -90,38 +116,47 @@ export default function LoanValuesEntry() {
               <TextField
                 required
                 fullWidth
-                id="loanTermInYears"
+                id="loanTermInYear"
                 label="Loan term in years"
-                name="loanTermInYears"
+                name="loanTermInYear"
+                defaultValue={loanValues.loanTermInYear}
+                onChange={loanValuesOnChange}
               />
             </Grid>
             <Grid item xs={8}>
               <TextField
                 required
                 fullWidth
-                id="paymentMadePerYears"
+                id="expectedPaymentsPerYear"
                 label="Payments made per year"
-                name="paymentMadePerYears"
+                name="expectedPaymentsPerYear"
+                defaultValue={loanValues.expectedPaymentsPerYear}
+                onChange={loanValuesOnChange}
               />
             </Grid>
             <Grid item xs={8}>
               <TextField
                 required
                 fullWidth
-                id="repaymentStartDate"
+                id="startDate"
                 label="Loan repayment start date"
-                name="repaymentStartDate"
+                name="startDate"
+                defaultValue={loanValues.startDate}
+                onChange={loanValuesOnChange}
               />
             </Grid>
             <Grid item xs={8}>
               <TextField
                 fullWidth
-                id="optionalExtraPayments"
+                id="extraLoanPaymentAmount"
                 label="Optional extra payments"
-                name="optionalExtraPayments"
+                name="extraLoanPaymentAmount"
+                defaultValue={loanValues.extraLoanPaymentAmount}
+                onChange={loanValuesOnChange}
               />
-            </Grid>
+            </Grid>            
           </Grid>
+          </form>
         </Box>
       </Box>
       {/* <Copyright sx={{ mt: 5 }} /> */}

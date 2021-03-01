@@ -19,13 +19,15 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function LoanEntryForm() {
   const classes = useStyles();
 
+  const time = new Date().toLocaleString();
+
   return (
     <Box className={classes.root}>
       <CssBaseline />
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <Paper className={classes.paper}>
-          <LoanValuesEntry />
+          <LoanValuesEntry loanAmount={250000} interestRate={3} loanTermInYear={30} expectedPaymentsPerYear={12} startDate={new Date()} extraLoanPaymentAmount={25000}/>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
