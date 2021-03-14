@@ -21,6 +21,7 @@ type LoanValuesEntryProps = {
   startDate: Date;
   extraLoanPaymentAmount?: number | undefined;
   onClick(e: React.MouseEvent<HTMLElement>): void;
+  calculateRepayment(): void;
 };
 
 // component stype is here
@@ -66,6 +67,11 @@ export default function LoanValuesEntry(props: LoanValuesEntryProps) {
     props
   );
 
+
+  /*
+  Functions below this line
+  */
+    
   // define the only function to update component's state
   const loanValuesOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -90,7 +96,6 @@ export default function LoanValuesEntry(props: LoanValuesEntryProps) {
       [event.target.name]: event.target.value,
     });
   };
-
   
   return (
     <Container maxWidth="xs">
@@ -214,4 +219,5 @@ LoanValuesEntry.defaultProps = {
   startDate: Date(),
   extraLoanPaymentAmount: 0,
   onClick: (event: React.MouseEvent<HTMLElement>) => console.log(event),
+  calculateRepayment: () => console.log('calculateRepayment()')
 };
