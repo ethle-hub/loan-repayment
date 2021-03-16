@@ -13,15 +13,14 @@ import Container from "@material-ui/core/Container";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 // input type for this component
-type LoanValuesEntryProps = {
+export type LoanValuesEntryProps = {
   loanAmount: number;
   interestRate: number;
   loanTermInYear: number;
   expectedPaymentsPerYear: number;
   startDate: Date;
-  extraLoanPaymentAmount?: number | undefined;
-  onClick(e: React.MouseEvent<HTMLElement>): void;
-  calculateRepayment(): void;
+  extraLoanPaymentAmount?: number | undefined;  
+  onSubmit(loanValues: LoanValuesEntryProps): void;
 };
 
 // component stype is here
@@ -56,8 +55,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 // funtional component
 export default function LoanValuesEntry(props: LoanValuesEntryProps) {
-  // createStyles() -> makeStyles()  to be use it here e.g. useStyle() :)
-  const classes = useStyles();
+
+  const classes = useStyles(); // createStyles() -> makeStyles()  to be use it here e.g. useStyle() :)
+  //const [loanRepayments, setloanRepayments] = React.useState("");
 
   /* make a copy of compument's state, consider good rule of efficient state management
    * e.g. Getter and Setter for `loanValues` variable
@@ -67,11 +67,6 @@ export default function LoanValuesEntry(props: LoanValuesEntryProps) {
     props
   );
 
-
-  /*
-  Functions below this line
-  */
-    
   // define the only function to update component's state
   const loanValuesOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -82,21 +77,23 @@ export default function LoanValuesEntry(props: LoanValuesEntryProps) {
     /* ! This looks simple but you might want to avoid
      * Here, you need nearby the whole state e.g. `...loanValues` to be able to update just `event.target.name`
      * This is a big construction to invoke to simply increase a counter: all because the state variable is responsible for more than one concern
-     * 
+     *
      * Q: what if I have way too much useState() variables?
-     * A: there is a good chance that you still violate the same rule e.g. Single Responsibility Principle. Perhaps the compoment will need to be splited. 
-     * 
+     * A: there is a good chance that you still violate the same rule e.g. Single Responsibility Principle. Perhaps the compoment will need to be splited.
+     *
      * Make your own judgement or `Extract multiple state operations into a reducer.`
-     * 
+     *
      * Use custom hook or a reducer for update logic but do in t away that less details of how the state is updated a desirable
-     * 
+     *
      */
     setLoanValues({
       ...loanValues,
       [event.target.name]: event.target.value,
     });
-  };
+  }; 
+
   
+
   return (
     <Container maxWidth="xs">
       <CssBaseline />
@@ -195,8 +192,8 @@ export default function LoanValuesEntry(props: LoanValuesEntryProps) {
                   variant="contained"
                   color="default"
                   className={classes.botton_submit}
-                  onClick={props.onClick}
-                  // startIcon={<CloudUploadIcon />}                  
+                  onClick={() => props.onSubmit(loanValues)}
+                  // startIcon={<CloudUploadIcon />}
                 >
                   Show Repayment
                 </Button>
@@ -216,8 +213,8 @@ LoanValuesEntry.defaultProps = {
   interestRate: 0,
   loanTermInYear: 0,
   expectedPaymentsPerYear: 0,
-  startDate: Date(),
+  startDate: new Date(),
   extraLoanPaymentAmount: 0,
-  onClick: (event: React.MouseEvent<HTMLElement>) => console.log(event),
-  calculateRepayment: () => console.log('calculateRepayment()')
+  //onClick: (event: React.MouseEvent<HTMLElement>) => console.log(event),
+  onSubmit: (loanValues: LoanValuesEntryProps) => console.log("defaultProps: onSubmit()"),
 };
