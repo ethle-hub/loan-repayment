@@ -116,7 +116,7 @@ export default function LoanValuesEntry(props: LoanValuesEntryProps) {
                 fullWidth
                 id="loanAmount"
                 label="Loan amount"
-                defaultValue={loanValues.loanAmount}
+                value={loanValues.loanAmount}
                 onChange={loanValuesOnChange}
                 autoFocus
               />
@@ -128,7 +128,7 @@ export default function LoanValuesEntry(props: LoanValuesEntryProps) {
                 id="interestRate"
                 label="Interest rate"
                 name="interestRate"
-                defaultValue={loanValues.interestRate}
+                value={loanValues.interestRate}
                 onChange={loanValuesOnChange}
               />
             </Grid>
@@ -149,7 +149,7 @@ export default function LoanValuesEntry(props: LoanValuesEntryProps) {
                 id="loanTermInYear"
                 label="Loan term in years"
                 name="loanTermInYear"
-                defaultValue={loanValues.loanTermInYear}
+                value={loanValues.loanTermInYear}
                 onChange={loanValuesOnChange}
               />
             </Grid>
@@ -160,7 +160,7 @@ export default function LoanValuesEntry(props: LoanValuesEntryProps) {
                 id="expectedPaymentsPerYear"
                 label="Payments made per year"
                 name="expectedPaymentsPerYear"
-                defaultValue={loanValues.expectedPaymentsPerYear}
+                value={loanValues.expectedPaymentsPerYear}
                 onChange={loanValuesOnChange}
               />
             </Grid>
@@ -171,7 +171,7 @@ export default function LoanValuesEntry(props: LoanValuesEntryProps) {
                 id="startDate"
                 label="Loan repayment start date"
                 name="startDate"
-                defaultValue={loanValues.startDate}
+                value={loanValues.startDate}
                 onChange={loanValuesOnChange}
               />
             </Grid>
@@ -181,7 +181,7 @@ export default function LoanValuesEntry(props: LoanValuesEntryProps) {
                 id="extraLoanPaymentAmount"
                 label="Optional extra payments"
                 name="extraLoanPaymentAmount"
-                defaultValue={loanValues.extraLoanPaymentAmount}
+                value={loanValues.extraLoanPaymentAmount}
                 onChange={loanValuesOnChange}
               />
             </Grid>
