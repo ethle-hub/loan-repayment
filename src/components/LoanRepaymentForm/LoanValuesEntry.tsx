@@ -19,7 +19,7 @@ export type LoanValuesEntryProps = {
   loanTermInYear: number;
   expectedPaymentsPerYear: number;
   startDate: Date;
-  extraLoanPaymentAmount?: number | undefined;  
+  extraLoanPaymentAmount?: number | undefined;
   onSubmit(loanValues: LoanValuesEntryProps): void;
 };
 
@@ -55,7 +55,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 // funtional component
 export default function LoanValuesEntry(props: LoanValuesEntryProps) {
-
   const classes = useStyles(); // createStyles() -> makeStyles()  to be use it here e.g. useStyle() :)
   //const [loanRepayments, setloanRepayments] = React.useState("");
 
@@ -72,7 +71,7 @@ export default function LoanValuesEntry(props: LoanValuesEntryProps) {
     event.preventDefault();
 
     // This function expect an change event from an `target` type HTMLInputElement where it is identified by `name` and hold the data in `value`
-    console.log(event.target.name, event.target.value);
+    console.log(event.target.name, event.target.value.replace(/^0+/, ""));
 
     /* ! This looks simple but you might want to avoid
      * Here, you need nearby the whole state e.g. `...loanValues` to be able to update just `event.target.name`
@@ -85,14 +84,12 @@ export default function LoanValuesEntry(props: LoanValuesEntryProps) {
      *
      * Use custom hook or a reducer for update logic but do in t away that less details of how the state is updated a desirable
      *
-     */
+     */    
     setLoanValues({
       ...loanValues,
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value.replace(/^0+/, ""),
     });
-  }; 
-
-  
+  };
 
   return (
     <Container maxWidth="xs">
@@ -107,99 +104,99 @@ export default function LoanValuesEntry(props: LoanValuesEntryProps) {
         <Box
           component="form"
           // noValidate
+          className={classes.form}
         >
           {/* entry fields */}
-          <form className={classes.form} noValidate autoComplete="off">
-            <Grid container spacing={0}>
-              <Grid item xs={8}>
-                <TextField
-                  name="loanAmount"
-                  required
-                  fullWidth
-                  id="loanAmount"
-                  label="Loan amount"
-                  defaultValue={loanValues.loanAmount}
-                  onChange={loanValuesOnChange}
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  fullWidth
-                  id="interestRate"
-                  label="Interest rate"
-                  name="interestRate"
-                  defaultValue={loanValues.interestRate}
-                  onChange={loanValuesOnChange}
-                />
-              </Grid>
-              <Grid item xs={4} container justify="flex-end">
-                <Grid item>
-                  <Link
-                    href="https://www.finder.com.au/bank-interest-rates"
-                    variant="body2"
-                  >
-                    Compare Bank Interest Rates
-                  </Link>
-                </Grid>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  fullWidth
-                  id="loanTermInYear"
-                  label="Loan term in years"
-                  name="loanTermInYear"
-                  defaultValue={loanValues.loanTermInYear}
-                  onChange={loanValuesOnChange}
-                />
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  fullWidth
-                  id="expectedPaymentsPerYear"
-                  label="Payments made per year"
-                  name="expectedPaymentsPerYear"
-                  defaultValue={loanValues.expectedPaymentsPerYear}
-                  onChange={loanValuesOnChange}
-                />
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  fullWidth
-                  id="startDate"
-                  label="Loan repayment start date"
-                  name="startDate"
-                  defaultValue={loanValues.startDate}
-                  onChange={loanValuesOnChange}
-                />
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  fullWidth
-                  id="extraLoanPaymentAmount"
-                  label="Optional extra payments"
-                  name="extraLoanPaymentAmount"
-                  defaultValue={loanValues.extraLoanPaymentAmount}
-                  onChange={loanValuesOnChange}
-                />
-              </Grid>
-              <Grid item xs={8}>
-                <Button
-                  variant="contained"
-                  color="default"
-                  className={classes.botton_submit}
-                  onClick={() => props.onSubmit(loanValues)}
-                  // startIcon={<CloudUploadIcon />}
+
+          <Grid container spacing={0}>
+            <Grid item xs={8}>
+              <TextField
+                name="loanAmount"
+                required
+                fullWidth
+                id="loanAmount"
+                label="Loan amount"
+                defaultValue={loanValues.loanAmount}
+                onChange={loanValuesOnChange}
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={8}>
+              <TextField
+                required
+                fullWidth
+                id="interestRate"
+                label="Interest rate"
+                name="interestRate"
+                defaultValue={loanValues.interestRate}
+                onChange={loanValuesOnChange}
+              />
+            </Grid>
+            <Grid item xs={4} container justify="flex-end">
+              <Grid item>
+                <Link
+                  href="https://www.finder.com.au/bank-interest-rates"
+                  variant="body2"
                 >
-                  Show Repayment
-                </Button>
+                  Compare Bank Interest Rates
+                </Link>
               </Grid>
             </Grid>
-          </form>
+            <Grid item xs={8}>
+              <TextField
+                required
+                fullWidth
+                id="loanTermInYear"
+                label="Loan term in years"
+                name="loanTermInYear"
+                defaultValue={loanValues.loanTermInYear}
+                onChange={loanValuesOnChange}
+              />
+            </Grid>
+            <Grid item xs={8}>
+              <TextField
+                required
+                fullWidth
+                id="expectedPaymentsPerYear"
+                label="Payments made per year"
+                name="expectedPaymentsPerYear"
+                defaultValue={loanValues.expectedPaymentsPerYear}
+                onChange={loanValuesOnChange}
+              />
+            </Grid>
+            <Grid item xs={8}>
+              <TextField
+                required
+                fullWidth
+                id="startDate"
+                label="Loan repayment start date"
+                name="startDate"
+                defaultValue={loanValues.startDate}
+                onChange={loanValuesOnChange}
+              />
+            </Grid>
+            <Grid item xs={8}>
+              <TextField
+                fullWidth
+                id="extraLoanPaymentAmount"
+                label="Optional extra payments"
+                name="extraLoanPaymentAmount"
+                defaultValue={loanValues.extraLoanPaymentAmount}
+                onChange={loanValuesOnChange}
+              />
+            </Grid>
+            <Grid item xs={8}>
+              <Button
+                variant="contained"
+                color="default"
+                className={classes.botton_submit}
+                onClick={() => props.onSubmit(loanValues)}
+                // startIcon={<CloudUploadIcon />}
+              >
+                Show Repayment
+              </Button>
+            </Grid>
+          </Grid>
         </Box>
       </Box>
       {/* <Copyright sx={{ mt: 5 }} /> */}
@@ -216,5 +213,6 @@ LoanValuesEntry.defaultProps = {
   startDate: new Date(),
   extraLoanPaymentAmount: 0,
   //onClick: (event: React.MouseEvent<HTMLElement>) => console.log(event),
-  onSubmit: (loanValues: LoanValuesEntryProps) => console.log("defaultProps: onSubmit()"),
+  onSubmit: (loanValues: LoanValuesEntryProps) =>
+    console.log("defaultProps: onSubmit()"),
 };
